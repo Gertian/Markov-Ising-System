@@ -243,13 +243,19 @@ class IsingSystem{
 			data  << i << "\t" << this->getEnergy() << "\t" << this->getMag()/this->getSize()/this->getSize() << endl;
 		}
 		cout << "Simulation completed" << endl;
+		//////////////////////////////////////////////////
+		//DANGER REGION!!!!
+		//THIS REGION IS NOT COMPATIBLE FOR ALL USERS!!!
+		//From here on I assume that you have GNUplot installed! comment this out when you do'nt have this software
 		cout << "Making the plots" << endl;
 		cout << "-------------------------------------------------------------------" << endl;
 		string a = "gnuplot -e \"amount = "+to_string(amount)+"\" Plot.gnu";
+		//The call to system will only work when you run on Linux/GNU comment this out when you don't 
 		system(a.c_str());
 		cout << endl;
 		cout << "Making a call to ffmpeg to make a movie out of the simulation" << endl;
                 cout << "-------------------------------------------------------------------" << endl;
+                //Here i make a movie using the made plots, coomment this out when you don't have ffmpeg of gnuplot!
                 system("ffmpeg -y -framerate 5 -i Plot%03d.png -c:v libx264 -r 30 -pix_fmt bgr565 out.mp4");
                 system("rm Plot*.png");
                 cout << endl << endl <<"done" << endl;
